@@ -101,7 +101,7 @@ const ReplaceText = () => {
             for="default-input"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Paste text here
+            Paste or Type text here
           </label>
           <input
             onPaste={handlePaste} // Add the onPaste event handler
@@ -122,13 +122,14 @@ const ReplaceText = () => {
       </div>
 
       {/* result */}
+      <hr class="h-px my-8 bg-gray-200 border-2 dark:bg-gray-700" />
       <div className="mt-5">
         <div className="w-full mb-2">
           <label
             for="default-input"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Pasted Text
+            Pasted or Typed Text
           </label>
           <span className="p-1 font-semiBold text-blue-700">{text}</span>
         </div>
