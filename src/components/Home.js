@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
-const Home = () => {
+function Home() {
   return <div>Home</div>;
-};
+}
 
 export default Home;

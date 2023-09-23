@@ -5,6 +5,7 @@ const ReplaceText = () => {
   const [text, setText] = useState("");
   const [result, setResult] = useState("");
   const [newSet, setNewSet] = useState(false);
+  const [clipboardContent, setClipboardContent] = useState("");
   const handleOnClick = async () => {
     const text_result = text.replaceAll(textToReplace.trim(), " ");
     setResult(text_result);
@@ -34,9 +35,34 @@ const ReplaceText = () => {
       });
     }
   };
+  window.addEventListener("focus", function (event) {
+    if (navigator.clipboard) {
+      // Attempt to read data from the clipboard
+      navigator.clipboard
+        .readText()
+        .then((text) => {
+          // 'text' variable contains the text from the clipboard
+          const plainText = stripFormatting(text);
+
+          // You can now use 'plainText' as plain text data
+          setText(plainText);
+
+          setNewSet(true);
+        })
+        .catch((error) => {
+          console.error("Failed to read clipboard: ", error);
+        });
+    }
+  });
+  function stripFormatting(input) {
+    // Use a regular expression to remove HTML tags and formatting
+    return input.replace(/<[^>]*>/g, "");
+  }
+  // Check if the Clipboard API is available in the browser
+
   useEffect(() => {
     async function fetchData() {
-      if (text && newSet) {
+      if (text && newSet && textToReplace) {
         const text_result = text.replaceAll(textToReplace.trim(), " ");
         setResult(text_result);
         try {
@@ -81,33 +107,26 @@ const ReplaceText = () => {
   };
   return (
     <div>
-      <div className="flex gap-10  justify-center items-end ">
+      <div className="flex  gap-2 flex-col  justify-center items-end ">
         <div className="w-full">
-          <label
-            for="default-input"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
+          <label className="block   text-sm font-medium text-gray-900 dark:text-white">
             Text to replace
           </label>
           <input
             onChange={(e) => setTextToReplace(e.target.value)}
             type="text"
-            id="default-input"
             className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  focus:ring-blue-500  focus:border-blue-500"
           />
         </div>
         <div className="w-full">
-          <label
-            for="default-input"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
+          <label className="block  text-sm font-medium text-gray-900 dark:text-white">
             Paste or Type text here
           </label>
           <input
             onPaste={handlePaste} // Add the onPaste event handler
             onChange={(e) => setText(e.target.value)}
+            value={text}
             type="text"
-            id="default-input"
             className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  focus:ring-blue-500  focus:border-blue-500"
           />
         </div>
@@ -122,29 +141,16 @@ const ReplaceText = () => {
       </div>
 
       {/* result */}
-      <hr class="h-px my-8 bg-gray-200 border-2 dark:bg-gray-700" />
+      <hr className="h-px my-8 bg-gray-200 border-2 dark:bg-gray-700" />
       <div className="mt-5">
-        <div className="w-full mb-2">
-          <label
-            for="default-input"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Pasted or Typed Text
-          </label>
-          <span className="p-1 font-semiBold text-blue-700">{text}</span>
-        </div>
         <div className="w-full">
-          <label
-            for="default-input"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Result
           </label>
           <input
             value={result}
             onChange={(e) => setResult(e.target.value)}
             type="text"
-            id="default-input"
             className=" bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  focus:ring-blue-500  focus:border-blue-500"
           />
         </div>
