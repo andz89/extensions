@@ -9,6 +9,7 @@ const ReplaceText = () => {
   });
 
   useEffect(() => {
+    document.title = "Auto Copy"; // Set the title you want
     async function fetchData() {
       if (textToCopy && newSet) {
         try {
