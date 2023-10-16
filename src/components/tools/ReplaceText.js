@@ -7,7 +7,7 @@ const ReplaceText = () => {
   const [newSet, setNewSet] = useState(false);
   const [clipboardContent, setClipboardContent] = useState("");
   const handleOnClick = async () => {
-    const text_result = text.replaceAll(textToReplace.trim(), " ");
+    const text_result = text.replaceAll(textToReplace.trim(), "");
     setResult(text_result);
     try {
       await navigator.clipboard.writeText(text_result);
@@ -42,7 +42,7 @@ const ReplaceText = () => {
         .readText()
         .then((text) => {
           // 'text' variable contains the text from the clipboard
-          const plainText = stripFormatting(text);
+          const plainText = text;
 
           // You can now use 'plainText' as plain text data
           setText(plainText);
@@ -54,6 +54,10 @@ const ReplaceText = () => {
         });
     }
   });
+  window.addEventListener("blur", function (event) {
+    setText("");
+    setResult("");
+  });
   function stripFormatting(input) {
     // Use a regular expression to remove HTML tags and formatting
     return input.replace(/<[^>]*>/g, "");
@@ -63,7 +67,7 @@ const ReplaceText = () => {
   useEffect(() => {
     async function fetchData() {
       if (text && newSet && textToReplace) {
-        const text_result = text.replaceAll(textToReplace.trim(), " ");
+        const text_result = text.replaceAll(textToReplace.trim(), "");
         setResult(text_result);
         try {
           await navigator.clipboard.writeText(text_result);
@@ -97,20 +101,12 @@ const ReplaceText = () => {
     fetchData();
   }, [text, textToReplace, newSet]);
 
-  const handlePaste = async (event) => {
-    // Access the pasted content from the event object
-    const pastedText = event.clipboardData.getData("text");
-    // You can do something with the pasted text here
-    // For example, set it to the text state
-    setText(pastedText);
-    setNewSet(true);
-  };
   return (
     <div>
       <div className="flex  gap-2 flex-col  justify-center items-end ">
         <div className="w-full">
           <label className="block   text-sm font-medium text-gray-900 dark:text-white">
-            Text to replace
+            Text to remove
           </label>
           <textarea
             onChange={(e) => setTextToReplace(e.target.value)}
@@ -121,11 +117,11 @@ const ReplaceText = () => {
         </div>
         <div className="w-full">
           <label className="block  text-sm font-medium text-gray-900 dark:text-white">
-            Paste or Type text here
+            Text to filter
           </label>
 
           <textarea
-            onPaste={handlePaste} // Add the onPaste event handler
+            value={text}
             onChange={(e) => setText(e.target.value)}
             rows="3"
             className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
