@@ -69,8 +69,8 @@ const ReplaceText = () => {
           await navigator.clipboard.writeText(text_result);
 
           toast.success("Text copied to clipboard!", {
-            position: "bottom-left",
-            autoClose: 5000,
+            position: "top-right",
+            autoClose: 1000,
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: false,
@@ -80,8 +80,8 @@ const ReplaceText = () => {
           });
         } catch (error) {
           toast.error("Error copying text to clipboard", {
-            position: "bottom-left",
-            autoClose: 5000,
+            position: "top-right",
+            autoClose: 2000,
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: false,
