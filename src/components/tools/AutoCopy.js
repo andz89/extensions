@@ -4,9 +4,11 @@ import CreateTool from "./CreateTool";
 import { useSelector, useDispatch } from "react-redux";
 import { toolAdded } from "../../features/tools/toolsSlice";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 const ReplaceText = () => {
   const tool_name = "autoCopy";
+  const navigate = useNavigate();
   const [textToCopy, setTextToCopy] = useState("");
   const [setshowSaveToolForm, setShowSaveToolForm] = useState(false);
   const [label, setLabel] = useState("");
@@ -49,6 +51,7 @@ const ReplaceText = () => {
     const _id = uuidv4();
     setShowSaveToolForm(false);
     dispatch(toolAdded({ tool_name, label, _id, textToCopy }));
+    navigate("/");
   };
   return (
     <div>

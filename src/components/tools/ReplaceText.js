@@ -4,10 +4,11 @@ import CreateTool from "./CreateTool";
 import { useSelector, useDispatch } from "react-redux";
 import { toolAdded } from "../../features/tools/toolsSlice";
 import { v4 as uuidv4 } from "uuid";
-
+import { useNavigate } from "react-router-dom";
 const ReplaceText = () => {
   const tool_name = "replaceText";
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [textToRemove, setTextToRemove] = useState("");
   const [textToInsert, setTextToInsert] = useState("");
   const [setshowSaveToolForm, setShowSaveToolForm] = useState(false);
@@ -67,6 +68,8 @@ const ReplaceText = () => {
     const _id = uuidv4();
     setShowSaveToolForm(false);
     dispatch(toolAdded({ tool_name, label, textToRemove, textToInsert, _id }));
+
+    navigate("/");
   };
   return (
     <div>
