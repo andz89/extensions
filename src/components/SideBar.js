@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaHome, FaCopy } from "react-icons/fa";
+import { TbReplace } from "react-icons/tb";
+
 const SideBar = () => {
   return (
     <>
@@ -32,20 +35,21 @@ const SideBar = () => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-          <ul className="space-y-2 font-medium">
+          <ul className="  font-medium">
             <li>
               <Link
                 to={"/"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                className="flex items-center px-2 text-gray-900 rounded dark:text-white hover:bg-slate-700 hover:text-slate-100 py-1 dark:hover:bg-gray-700 group"
               >
-                <span className="ml-3">Home</span>
+                <FaHome /> <span className="ml-3">Home</span>
               </Link>
             </li>
             <li>
               <Link
                 to={"/replace-text"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                className="flex items-center px-2 text-gray-900 rounded dark:text-white hover:bg-slate-700 hover:text-slate-100 py-1 dark:hover:bg-gray-700 group"
               >
+                <TbReplace />{" "}
                 <span className="flex-1 ml-3 whitespace-nowrap">
                   Replace Text
                 </span>
@@ -54,42 +58,11 @@ const SideBar = () => {
             <li>
               <Link
                 to={"/auto-copy-text"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                className="flex items-center px-2 text-gray-900 rounded dark:text-white hover:bg-slate-700 hover:text-slate-100 py-1 dark:hover:bg-gray-700 group"
               >
+                <FaCopy />
                 <span className="flex-1 ml-3 whitespace-nowrap">Auto Copy</span>
               </Link>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <span className="flex-1 ml-3 whitespace-nowrap">Users</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <span className="flex-1 ml-3 whitespace-nowrap">Products</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <span className="flex-1 ml-3 whitespace-nowrap">Sign In</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <span className="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
-              </a>
             </li>
           </ul>
         </div>

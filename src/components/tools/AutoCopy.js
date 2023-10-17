@@ -1,52 +1,71 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import CreateTool from "./CreateTool";
+import { useSelector, useDispatch } from "react-redux";
+import { toolAdded } from "../../features/tools/toolsSlice";
+import { v4 as uuidv4 } from "uuid";
+
 const ReplaceText = () => {
+  const tool_name = "autoCopy";
   const [textToCopy, setTextToCopy] = useState("");
+  const [setshowSaveToolForm, setShowSaveToolForm] = useState(false);
+  const [label, setLabel] = useState("");
 
-  const [newSet, setNewSet] = useState(false);
-  window.addEventListener("focus", async function (event) {
-    setNewSet(true);
-  });
-
-  useEffect(() => {
-    document.title = "Auto Copy"; // Set the title you want
-    async function fetchData() {
-      if (textToCopy && newSet) {
-        try {
-          await navigator.clipboard.writeText(textToCopy);
-
-          toast.success("Text copied to clipboard!", {
-            position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        } catch (error) {
-          toast.error("Error copying text to clipboard", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-            theme: "light",
-          });
-        }
-        setNewSet(false);
-      }
+  const dispatch = useDispatch();
+  const EmptyInputsWarning = (errorText) => {
+    toast.error(errorText + " is empty", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+  const handleOnClick = async () => {
+    if (!textToCopy) {
+      return EmptyInputsWarning("text to copy");
     }
 
-    fetchData();
-  }, [textToCopy, newSet]);
+    await navigator.clipboard.writeText(textToCopy);
 
+    toast.success("Text copied to clipboard!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+  window.addEventListener("blur", function (event) {
+    toast.dismiss();
+  });
+  const onSaveTool = () => {
+    const _id = uuidv4();
+    setShowSaveToolForm(false);
+    dispatch(toolAdded({ tool_name, label, _id, textToCopy }));
+  };
   return (
     <div>
+      {setshowSaveToolForm && (
+        <CreateTool
+          setShowSaveToolForm={setShowSaveToolForm}
+          setLabel={setLabel}
+          onSaveTool={onSaveTool}
+        />
+      )}
       <div className="flex  gap-2 flex-col  justify-center items-end ">
+        <div
+          onClick={() => setShowSaveToolForm((prev) => !prev)}
+          className="bg-slate-700 py-1 px-2 cursor-pointer font-semibold text-white rounded"
+        >
+          Create Tool
+        </div>
         <div className="w-full">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Text to copy to clipboard
@@ -62,8 +81,13 @@ const ReplaceText = () => {
 
       {/* result */}
       <hr className="h-px my-8 bg-gray-200 border-2 dark:bg-gray-700" />
-      <div className="mt-5 flex justify-center items-center w-full font-semibold text-slate-400 text-3xl">
-        Just focus this page and it will set the text to clipboard
+      <div
+        onClick={handleOnClick}
+        className="w-full cursor-pointer h-[120px] bg-slate-200 flex justify-center items-center"
+      >
+        <div className="  text-slate-600  text-3xl font-semibold">
+          Click here to copy
+        </div>
       </div>
     </div>
   );
