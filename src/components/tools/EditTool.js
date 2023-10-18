@@ -19,7 +19,9 @@ const EditTool = ({ setShowEditToolForm, tool_data }) => {
   }, []);
   const onSaveTool = () => {
     setShowEditToolForm((prev) => !prev);
-    dispatch(toolEditted({ textToRemove, textToInsert, _id, label }));
+    dispatch(
+      toolEditted({ textToCopy, textToRemove, textToInsert, _id, label })
+    );
   };
   return (
     <div className="fixed top-0 left-0 right-0 z-50   w-full p-4 overflow-x-hidden bg-slate-900 bg-opacity-40 overflow-y-auto md:inset-0 h-[calc(100%-1rem)]  h-screen  flex items-center justify-center ">

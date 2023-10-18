@@ -40,14 +40,15 @@ const toolsSlice = createSlice({
     },
 
     toolEditted: (state, action) => {
-      const { textToRemove, textToInsert, label, _id } = action.payload;
+      const { textToCopy, textToRemove, textToInsert, label, _id } =
+        action.payload;
       const existingTool = state.tools.find((tool) => tool._id === _id);
 
       if (existingTool) {
         existingTool.textToRemove = textToRemove;
         existingTool.textToInsert = textToInsert;
         existingTool.label = label;
-
+        existingTool.textToCopy = textToCopy;
         existingTool._id = _id;
       }
     },
