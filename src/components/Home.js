@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { removeTool } from "../features/tools/toolsSlice";
-import ReplaceText from "./mini_tool/ReplaceText";
-import AutoCopy from "./mini_tool/AutoCopy";
-import EditTool from "./tools/EditTool";
+import ReplaceText from "./view-tool/ReplaceText";
+import AutoCopy from "./view-tool/AutoCopy";
+import EditTool from "./create-tool/EditTool";
 function Home() {
   const [showEditToolForm, setShowEditToolForm] = useState(false);
   const [tool_data, setTool_data] = useState("");
@@ -85,7 +85,7 @@ function Home() {
     return text;
   };
   const extensions_tools = tools.map((tool) => (
-    <div key={tool._id}>
+    <div key={tool._id} className="w-full sm:w-[200px] ">
       {tool.tool_name === "replaceText" && (
         <ReplaceText
           onDelete={onDelete}
@@ -114,7 +114,7 @@ function Home() {
           setShowEditToolForm={setShowEditToolForm}
         />
       )}
-      <div className="flex gap-4 flex-wrap justify-start">
+      <div className="flex gap-4 flex-wrap bg-yellow-100 p-3    w-full   justify-center sm:justify-start">
         {extensions_tools}
       </div>
     </>

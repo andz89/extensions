@@ -23,7 +23,7 @@ const ReplaceText = ({ tool, onDelete, processText, onEdit, truncateText }) => {
 
         <div
           onClick={() => processText(tool)}
-          className="w-[180px] bg-slate-200  h-[210px]  p-2  cursor-pointer hover:shadow-lg  "
+          className=" bg-slate-200  h-[210px]  p-2  cursor-pointer hover:shadow-lg  "
         >
           <div className="flex-col flex">
             <small>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaCopy } from "react-icons/fa";
+import { FaHome, FaCopy, FaPlus } from "react-icons/fa";
+
 import { TbReplace } from "react-icons/tb";
 
 const SideBar = () => {
@@ -53,6 +54,7 @@ const SideBar = () => {
                 <span className="flex-1 ml-3 whitespace-nowrap">
                   Replace Text
                 </span>
+                <FaPlus className="text-slate-400" />
               </Link>
             </li>
             <li>
@@ -62,6 +64,7 @@ const SideBar = () => {
               >
                 <FaCopy />
                 <span className="flex-1 ml-3 whitespace-nowrap">Auto Copy</span>
+                <FaPlus className="text-slate-400" />
               </Link>
             </li>
           </ul>
