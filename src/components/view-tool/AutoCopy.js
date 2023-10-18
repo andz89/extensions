@@ -30,7 +30,7 @@ const AutoCopy = ({ tool, onDelete, processText, onEdit, truncateText }) => {
             <strong>Text to copy:</strong>{" "}
             <span className="block text-[#666666]">
               {" "}
-              {truncateText(tool.textToCopy, 55)}{" "}
+              {truncateText(tool.textToCopy, 20)}{" "}
             </span>
           </small>
         </div>
