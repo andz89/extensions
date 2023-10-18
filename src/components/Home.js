@@ -85,7 +85,7 @@ function Home() {
     return text;
   };
   const extensions_tools = tools.map((tool) => (
-    <div key={tool._id} className="w-[130px] sm:w-[200px] ">
+    <div key={tool._id} className="w-[160px] sm:w-[200px] ">
       {tool.tool_name === "replaceText" && (
         <ReplaceText
           onDelete={onDelete}
@@ -114,7 +114,7 @@ function Home() {
           setShowEditToolForm={setShowEditToolForm}
         />
       )}
-      <div className="flex gap-4 flex-wrap bg-yellow-100 p-3    w-full   justify-center sm:justify-start">
+      <div className="flex gap-3 flex-wrap bg-yellow-100 p-3    w-full    justify-start">
         {extensions_tools}
       </div>
     </>
