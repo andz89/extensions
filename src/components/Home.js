@@ -85,7 +85,7 @@ function Home() {
     return text;
   };
   const extensions_tools = tools.map((tool) => (
-    <div key={tool._id} className="w-full sm:w-[200px] ">
+    <div key={tool._id} className="w-[130px] sm:w-[200px] ">
       {tool.tool_name === "replaceText" && (
         <ReplaceText
           onDelete={onDelete}
